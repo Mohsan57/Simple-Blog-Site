@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/profile/navbar_style.css'%}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="{%static 'css/profile/style.css'%}">
+    <title> {% if found %}
+        {{user.user_name}} New Post
+        {%else%}
+        Not Found
+        {% endif %}</title>
+    <style>
+        form {
+            display: ruby;
+            justify-content: center;
+            align-items: center;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 4rem;
+            padding: 4rem;
+            margin: 0 auto;
+            justify-items: center;
+        }
+
+        input {
+            width: flex;
+            font-weight: bold;
+        }
+
+        form:hover {
+            background: whitesmoke;
+            border-radius: 7px;
+        }
+
+        p {
+            font-size: 14px;
+            font-family: 'Open Sans';
+            margin-top: 0.5em;
+            line-height: 2em;
+        }
+
+        .button {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #1e82f4;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body style="background: rgba(0, 0, 0, 0.1);">
+    {% if found %}
+    <!--- NavBar -->
+    <nav class="navbar navbar-default" role="navigation" style="background: rgba(201, 201, 201, 0.74);">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'profile' user.slug %}">Dashboard</a></li>
+                    <li><a href="{% url 'new_blog' user.slug%}">New Blog</a></li>
+                    <li><a href="#">Edit Account</a></li>
+                    <li><a href="{% url 'home' %}">Logout</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--   End Navbar-->
+    <div>
+        <div class="container bootstrap snippets bootdey" style="margin-bottom: 100px;">
+            <div class="panel-body inf-content" style="background:rgba(201, 201, 201, 0.74)">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <section>
+                        <div>
+                            {{form.media}}
+                            {{form.as_p}}
+
+                        </div>
+                    </section>
+                    <button type="submit" class="button" style="vertical-align:middle"><span>Upload</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {%else%}
+    <div id="error_page">
+
+    </div>
+    {% endif %}
+    <script>
+        $(function () {
+            $("#error_page").load("{% static 'error_msg.html'%}");
+        });
+    </script>
+</body>
+
+</html>

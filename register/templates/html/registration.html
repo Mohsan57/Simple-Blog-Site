@@ -1,0 +1,62 @@
+{% extends "html/baseform.html" %}
+{%load static%}
+
+
+{% block title %}
+Sign Up
+{% endblock title %}
+{% block formtitle1 %}
+Sign Up
+{% endblock formtitle1 %}
+
+{% block formtitle2 %}
+Sign Up
+{% endblock formtitle2 %}
+{% block account-exist %}
+Already have a Account
+{% endblock account-exist %}
+{% block url-of-2nd-page %}
+<a href="{% url 'singin' %}" class="btn btn-white btn-outline-white">Login</a>
+{% endblock url-of-2nd-page %}
+{% block singin-singup1 %}
+Sign Up
+{% endblock singin-singup1 %}
+{% block _form %}
+<form class="signin-form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class=" form-group mb-3">
+        <div class="label">
+            {{form.as_p}}
+            {{user_photo_form.as_p}}
+        </div>
+
+    </div>
+    <li style="color: red; font-size: small; visibility: hidden;" id="ErrorMsg"></li>
+    <div class="form-group">
+        <button type="submit" id="SubmitBtn" class="form-control btn btn-primary submit px-3" disabled>
+            Signup
+        </button>
+    </div>
+
+</form>
+{% endblock _form %}
+{% block scriptdoc %}
+<script>
+    document.getElementById('id_confirm_password').onkeyup = passwordcheck
+    function passwordcheck() {
+        var pass1 = document.getElementById('id_password').value;
+        var pass2 = document.getElementById('id_confirm_password').value;
+        pass1.toString();
+        pass2.toString();
+        if (pass1 != pass2) {
+            document.getElementById('ErrorMsg').innerHTML = "Password Must be Same"
+            document.getElementById('ErrorMsg').style.visibility = "unset"
+            document.getElementById('SubmitBtn').disabled = true
+        } else {
+            document.getElementById('ErrorMsg').innerHTML = ""
+            document.getElementById('ErrorMsg').style.visibility = "hidden"
+            document.getElementById('SubmitBtn').disabled = false
+        }
+    }
+</script>
+{% endblock scriptdoc %}

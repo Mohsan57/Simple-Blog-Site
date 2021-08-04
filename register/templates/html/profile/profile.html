@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/profile/navbar_style.css'%}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="{%static 'css/profile/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/blogs.css'%}">
+
+    <title>{% if found %}
+        {{user_detail.user_name}}
+        {%else%}
+        Not Found
+        {% endif %}</title>
+</head>
+
+<body style="background: rgba(0, 0, 0, 0.1);">
+    {% if found %}
+    <!--- NavBar -->
+    <nav class="navbar navbar-fixed-top navbar-default" role="navigation"
+        style="background: rgba(201, 201, 201, 0.74);">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'profile' user_detail.slug %}">Dashboard</a></li>
+                    <li><a href="{% url 'new_blog' user_detail.slug%}">New Blog</a></li>
+                    <li><a href="#">Edit Account</a></li>
+                    <li><a href="{%url 'home' %}">Logout</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--   End Navbar-->
+    <div class="container bootstrap snippets bootdey" style="margin-bottom: 100px; margin-top: 80px;">
+        <div class="panel-body inf-content" style="background:rgba(201, 201, 201, 0.74)">
+            <div class="row">
+                <div class="col-md-4 container2">
+                    <img alt="" style="width:500px; height: 400px;" title="" class="img-circle img-thumbnail isTooltip"
+                        src="{% static 'uploads/' %}{{photo_link}}" data-original-title="Usuario">
+                </div>
+                <div class="col-md-6">
+                    <strong>Information</strong><br>
+
+                    <div class="table-responsive">
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            ID No
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        {{user_detail.id}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            First Name
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        {{user_detail.first_name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            Last Name
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        {{user_detail.last_name}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            Username
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        {{user_detail.user_name}}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            Date of Birth
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        {{user_detail.date_of_birth}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            Email
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        {{user_detail.email}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            Account created Date
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        {{user_detail.account_created_date}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon text-primary"></span>
+                                            Modified
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        N/A
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---    Blogs   -->
+    {% if found_blog %}
+    <section class="cards-wrapper">
+        {% for blog in blogs %}
+        <div class="card-grid-space">
+            <div class="num">{{forloop.counter}}</div>
+            <p>writer: {{blog.writer.user_name}}</p>
+            <a class="card" id="card" href="{% url 'blog' blog.slug %}"
+                style="--bg-img: url({% static 'uploads/' %}{{blog.cover_photo.name}})">
+                <div>
+                    <h1>{{blog.title}}</h1>
+                    <span style="display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    max-width: 200px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: 16px;">
+                        <p>{{blog.content|safe}}</p>
+                    </span>
+                    <div class="date">{{blog.blog_created_date}}</div>
+                    <div class="tags">
+                        <div class="tag">{{blog.tag}}</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+    <!-------End Blog-->
+    {% endif %}
+    {% else %}
+    <div id="error_page">
+
+    </div>
+    {% endif %}
+    <script>
+        $(function () {
+            $("#error_page").load("{% static 'error_msg.html'%}");
+
+        });
+    </script>
+</body>
+
+</html>

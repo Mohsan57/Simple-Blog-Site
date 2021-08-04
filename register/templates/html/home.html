@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/blogs.css'%}">
+    <link rel="stylesheet" href="{% static 'css/home/bootstrap.min.css'%}">
+    <title>Home</title>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container-fluid">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}">Simple Blog Site</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'singin' %}">Signin</a></li>
+                    <li><a href="{% url 'singup' %}">Signup</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- /.navbar -->
+    <div style="position: relative;
+    text-align: center;
+    color: white;">
+        <img src="{% static 'images/blog.jpg' %}" alt="blog" style="width: 100%; height: 550px;">
+        <div style="position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        font-size: 72px;
+        font-weight: bolder;
+        color: rgba(0, 0, 0, 0.692);
+        ">Simple Blog Site
+            using Django</div>
+    </div>
+    <section class="cards-wrapper" style="margin-top:5px;">
+        {% for blog in blogs %}
+        <div class="card-grid-space">
+            <div class="num">{{forloop.counter}}</div>
+            <p>writer: <a href="{% url 'user_blogs' blog.writer.slug%}">{{blog.writer.user_name}}</a></p>
+            <a class="card" href="{% url 'blog' blog.slug %}"
+                style="--bg-img: url({% static 'uploads/' %}{{blog.cover_photo.name}})">
+                <div>
+                    <h1>{{blog.title}}</h1>
+                    <span style="display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    max-width: 200px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: 16px;">
+                        <p>{{blog.content|safe}}</p>
+                    </span>
+                    <div class="date">{{blog.blog_created_date}}</div>
+                    <div class="tags">
+                        <div class="tag">{{blog.tag}}</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+</body>
+
+</html>

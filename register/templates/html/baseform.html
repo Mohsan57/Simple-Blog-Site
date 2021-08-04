@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style>
+        fieldset {
+            margin-bottom: 8px;
+            overflow: hidden;
+            padding: 1 .625em;
+        }
+
+        .dark-mode {
+            background-color: rgba(0, 0, 0, 0.76);
+        }
+
+        .dark-mode h2 {
+            color: white;
+        }
+
+        label {
+            cursor: pointer;
+            display: inline-block;
+            padding: 1px 0px;
+            text-align: right;
+            width: 90px;
+            vertical-align: top;
+        }
+
+        input {
+            font-size: inherit;
+        }
+
+        .button_slide {
+            margin-left: 20px;
+            margin-top: 20px;
+            color: rgb(0, 0, 0);
+            border: 2px solid rgb(216, 2, 134);
+            border-radius: 0px;
+            padding: 18px 36px;
+            display: inline-block;
+            font-family: "Lucida Console", Monaco, monospace;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: inset 0 0 0 0 #d80249e7;
+            -webkit-transition: ease-out 1s;
+            -moz-transition: ease-out 1s;
+            transition: ease-out 1s;
+        }
+
+        .slide_right:hover {
+            box-shadow: inset 400px 0 0 0 #d80249e7;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+
+        {% endblock title %}</title>
+</head>
+
+<body>
+    <link rel="stylesheet" href="{% static 'css/baseform.css'%}">
+    <a class="button_slide slide_right" href="{% url 'home' %}">Back</a>
+    <section class="ftco-section dark">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">{% block formtitle1 %}
+
+                        {% endblock formtitle1 %}</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="wrap d-md-flex">
+                        <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                            <div class="text w-100">
+                                <h2>Welcome to {% block formtitle2 %}
+
+                                    {% endblock formtitle2 %}</h2>
+                                <p>{% block account-exist %}
+
+                                    {% endblock account-exist %}</p>
+                                {% block url-of-2nd-page %}
+
+                                {% endblock url-of-2nd-page %}
+                            </div>
+                        </div>
+                        <div class="login-wrap p-4 p-lg-5" id="dark">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4">{% block singin-singup1 %}
+
+                                        {% endblock singin-singup1 %}</h3>
+                                </div>
+                            </div>
+
+                            {% block _form %}
+
+                            {% endblock _form %}
+                            <div class="form-group d-md-flex">
+                                <div class="w-50 text-md-right">
+                                    {% block Account-validation %}
+
+                                    {% endblock Account-validation %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block scriptdoc %}
+
+    {% endblock scriptdoc %}
+</body>
+
+</html>

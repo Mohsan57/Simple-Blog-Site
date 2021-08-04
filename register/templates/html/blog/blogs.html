@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" href="{% static 'css/home/bootstrap.min.css'%}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if found %}
+        {{blog.title}}
+        {%else%}
+        Not Found
+        {% endif %}</title>
+</head>
+
+<body>
+
+    {% if found %}
+    <div>
+        <!-- Navigation -->
+        <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container-fluid">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{%url 'home'%}">Simple Blog Site</a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'singin' %}">Signin</a></li>
+                        <li><a href="{% url 'singup' %}">Signup</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Page Content -->
+        <div class="container-fluid" style="margin-top: 20px;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <h1><b>{{blog.title}}</b></h1>
+                        <p>Posted by: <span class="glyphicon "></span> <a href="#"><b>{{blog.writer.user_name}}</b></a>
+                        <p>Posted Date: <span class="glyphicon "></span> <b>{{blog.blog_created_date}}</b>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-sm-8">
+
+                    <!-- Image -->
+                    <figure class="margin-b-2">
+                        <img class="img-responsive" style="width: 900px; height: 500px;"
+                            src="{% static 'uploads/' %}{{blog.cover_photo.name}}" alt="">
+                        <figcaption class="margin-t-h">
+                            <!-- Caption Here -->
+                        </figcaption>
+                    </figure>
+                    <p>{{blog.content|safe}}</p>
+                    <hr>
+                    <footer class="margin-tb-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p>Copyright &copy; Simple Blog Site 2021</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span id='demo'>
+
+    </span>
+    {%else%}
+    <div id="error_page">
+    </div>
+    {% endif %}
+    <script>
+        $(function () {
+            $("#error_page").load("{% static 'error_msg.html'%}");
+
+        });
+    </script>
+</body>
+
+</html>
